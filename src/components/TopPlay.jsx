@@ -51,6 +51,8 @@ const TopPlay = () => {
   }
 
   const handlePlayClick = (song, i) => {
+    console.log("heyyyyyykjk")
+    console.log(data)
     dispatch(setActiveSong({ song, data, i}))
     dispatch(playPause(true))
   }
