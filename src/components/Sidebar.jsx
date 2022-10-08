@@ -10,10 +10,10 @@ import { logo } from '../assets';
 import { links } from '../assets/constants';
 
 const NavLinks = ({ handleClick }) => (
-  <div className="mt-10">
+  <div>
     {links.map((item) => (
       <NavLink
-      className="flex flex-row justify-start items-center my-8 text-sm font-medium text-gray-400 hover:text-cyan-400"
+      className="flex pt-2 pb-2 pl-2 rounded-sm my-2 flex-row justify-start items-center text-sm font-medium text-gray-400 hover:text-cyan-400"
       key={item.name}
       to={item.to}
       onClick={() => handleClick && handleClick()}
