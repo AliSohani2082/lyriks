@@ -6,7 +6,7 @@ const RelatedSongs = ({ data, isPlaying, activeSong, handlePauseClick, handlePla
     <div className='mt-6 w-full flex flex-col'>
       {data?.map((song, i) => (
         <SongBar
-          key={`${song.key}${artistid}`}
+          key={`${song.key}-${artistid}`}
           song={song}
           i={i}
           artistId={artistid}
