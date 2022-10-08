@@ -15,7 +15,7 @@ const SongDetails = () => {
 
   return (
     <div className="flex flex-col">
-      <DitailsHeader
+      <DetailsHeader
         //artistId={artistId}
         songData={songData}
       />
