@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { DetailsHeader, Loader, Error, RelatedSongs } from '../components';
+import { useGetSongDetailsQuery } from "../redux/services/shazamCore";
 
 import { setActiveSong, playPause } from "../redux/features/playerSlice";
 
@@ -12,7 +13,16 @@ const SongDetails = () => {
 
   return (
     <div className="flex flex-col">
-      <DitailsHeader
+      {/* <DitailsHeader
+        artistId={artistId}
+        songData={songData}
+      /> */}
+      <div className="mb-10">
+        <h2 className="text-white text-3xl font-bold">Lyrics</h2>
+        <div className="mt-5">
+          {}
+        </div>
+      </div>
     </div>
   )
 };
