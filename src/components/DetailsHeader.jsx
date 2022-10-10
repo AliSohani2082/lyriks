@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { selectGenreListId } from '../redux/features/playerSlice';
 
 const DetailsHeader = ({ artistId, artistData, songData}) => {
   const artist = artistData?.artists[artistId].attributes;
+  const genre = artistId ? artist?.genreNames[0] : songData?.genres?.primary
+  const dispatch = useDispatch();
   return (
     <div className='relative w-full flex flex-col'>
       <div className='w-full bg-gradient-to-l from-transparent to-black sm:h-48 h-28'>
@@ -21,9 +25,11 @@ const DetailsHeader = ({ artistId, artistData, songData}) => {
                   <p className='text-base text-gray-400 mt-2'>{songData?.subtitle}</p>
                 </Link>
             )}
-            <p className='text-base text-gray-400 mt-2'>
-              {artistId ? artist?.genreNames[0] : songData?.genres?.primary}
-            </p>
+            <Link onClick={() => {dispatch(selectGenreListId(String(genre).replace(/-/g, '_').toUpperCase()))}} to={"/"}>
+              <p className='text-base text-gray-400 mt-2'>
+                {genre}
+              </p>
+            </Link>
           </div>
         </div>
       </div>
