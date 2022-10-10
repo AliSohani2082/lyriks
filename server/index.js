@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
+import usersRoutes from './routes/user'
 
 const app = express()
 dotenv.config()
@@ -10,6 +11,12 @@ dotenv.config()
 app.use(bodyParser.json({limit: '30mb', extended: true}))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true}))
 app.use(cors());
+
+app.use('/', (req, res) => {
+  res.send("Hello World!")
+})
+
+app.use('/users', usersRoutes)
 
 const PORT = process.env.PORT || 5000
 
