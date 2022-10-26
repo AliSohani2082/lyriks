@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon ./index.js",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "dev": "nodemon server/index.js"
   },
   "keywords": [],
   "author": "",

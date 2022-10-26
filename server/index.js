@@ -3,9 +3,10 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import usersRoutes from './routes/user'
 import { graphqlHTTP } from 'express-graphql'
-import schema from './schema'
+import { GraphQLSchema } from 'graphql'
+// import RootQuery from './schema/rootQuery'
+import { UserType } from './models/User'
 
 const app = express()
 dotenv.config()
@@ -14,16 +15,19 @@ app.use(bodyParser.json({limit: '30mb', extended: true}))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true}))
 app.use(cors());
 
-app.use('/graphql', graphqlHTTP({
-  schema,
-  graphiql: process.env.NODE_ENV === 'development',
-}))
+// const schema = GraphQLSchema({
+//   query: RootQuery,
+//   mutation
+// })
+
+// app.use('/graphql', graphqlHTTP({
+//   schema,
+//   graphiql: process.env.NODE_ENV === 'development',
+// }))
 
 app.use('/', (req, res) => {
   res.send("Hello World!")
 })
-
-app.use('/users', usersRoutes)
 
 const PORT = process.env.PORT || 5000
 

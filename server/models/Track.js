@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import User from './User'
 const { Schema } = mongoose
 
 const trackSchema = new Schema({

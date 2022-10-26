@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import PlayList from "./PlayList";
 const { Schema } = mongoose
 
 const userSchema = new Schema({
