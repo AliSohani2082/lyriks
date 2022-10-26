@@ -3,15 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "nodemon ./index.js",
-    "preinstall": "npx only-allow pnpm",
-    "dev": "nodemon server/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
@@ -25,5 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.5",
     "nodemon": "^2.0.20"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

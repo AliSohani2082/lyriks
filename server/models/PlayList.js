@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 const { Schema } = mongoose
 
 const playListSchema = new Schema({
@@ -15,4 +15,4 @@ const playListSchema = new Schema({
   isLikedPlayList: { type: Boolean },
 })
 
-export default mongoose.model("PlayList", playListSchema)
+module.exports = mongoose.model("PlayList", playListSchema)

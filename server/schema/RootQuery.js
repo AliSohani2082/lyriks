@@ -1,9 +1,9 @@
-import { UserType, TrackType, PlayListType } from "./dataSchema";
-import User from '../models/User'
-import Track from '../models/Track'
-import PlayList from '../models/PlayList'
+const { UserType, TrackType, PlayListType } = require("./dataSchema");
+const User = require('../models/User')
+const Track = require('../models/Track')
+const PlayList = require('../models/PlayList')
 
-import {
+const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
@@ -11,9 +11,9 @@ import {
   GraphQLInt,
   GraphQLBoolean,
   UniqueOperationTypesRule,
-} from 'graphql'
+} = require('graphql')
 
-export const RootQuery = new GraphQLObjectType({
+module.exports = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     Track: {

@@ -1,34 +1,32 @@
 lockfileVersion: 5.4
 
-importers:
+specifiers:
+  bcrypt: ^5.1.0
+  bcryptjs: ^2.4.3
+  body-parser: ^1.20.1
+  colors: ^1.4.0
+  cors: ^2.8.5
+  dotenv: ^16.0.3
+  express: ^4.18.2
+  express-graphql: ^0.12.0
+  graphql: ^16.6.0
+  jsonwebtoken: ^8.5.1
+  mongoose: ^6.6.5
+  nodemon: ^2.0.20
 
-  .:
-    specifiers:
-      bcrypt: ^5.1.0
-      bcryptjs: ^2.4.3
-      body-parser: ^1.20.1
-      colors: ^1.4.0
-      cors: ^2.8.5
-      dotenv: ^16.0.3
-      express: ^4.18.2
-      express-graphql: ^0.12.0
-      graphql: ^16.6.0
-      jsonwebtoken: ^8.5.1
-      mongoose: ^6.6.5
-      nodemon: ^2.0.20
-    dependencies:
-      bcrypt: registry.npmjs.org/bcrypt/5.1.0
-      bcryptjs: registry.npmjs.org/bcryptjs/2.4.3
-      body-parser: registry.npmjs.org/body-parser/1.20.1
-      colors: registry.npmjs.org/colors/1.4.0
-      cors: registry.npmjs.org/cors/2.8.5
-      dotenv: registry.npmjs.org/dotenv/16.0.3
-      express: registry.npmjs.org/express/4.18.2
-      express-graphql: registry.npmjs.org/express-graphql/0.12.0_graphql@16.6.0
-      graphql: registry.npmjs.org/graphql/16.6.0
-      jsonwebtoken: registry.npmjs.org/jsonwebtoken/8.5.1
-      mongoose: registry.npmjs.org/mongoose/6.7.0
-      nodemon: registry.npmjs.org/nodemon/2.0.20
+dependencies:
+  bcrypt: registry.npmjs.org/bcrypt/5.1.0
+  bcryptjs: registry.npmjs.org/bcryptjs/2.4.3
+  body-parser: registry.npmjs.org/body-parser/1.20.1
+  colors: registry.npmjs.org/colors/1.4.0
+  cors: registry.npmjs.org/cors/2.8.5
+  dotenv: registry.npmjs.org/dotenv/16.0.3
+  express: registry.npmjs.org/express/4.18.2
+  express-graphql: registry.npmjs.org/express-graphql/0.12.0_graphql@16.6.0
+  graphql: registry.npmjs.org/graphql/16.6.0
+  jsonwebtoken: registry.npmjs.org/jsonwebtoken/8.5.1
+  mongoose: registry.npmjs.org/mongoose/6.7.0
+  nodemon: registry.npmjs.org/nodemon/2.0.20
 
 packages:
 

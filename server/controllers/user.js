@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+const mongoose = require("mongoose")
+const bcrypt = require('bcryptjs')
+const  jwt = require('jsonwebtoken')
 
-import User from '../models/Users.js'
+const User = require('../models/Users.js')
 
 export const signin = async ( req, res ) => {
     const { email, password } = req.body

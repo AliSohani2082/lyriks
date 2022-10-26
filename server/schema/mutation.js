@@ -1,11 +1,12 @@
-import { UserType, TrackType, PlayListType } from "./dataSchema";
-import {
+const { UserType, TrackType, PlayListType } = require("./dataSchema");
+const {
   GraphQLBoolean,
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString
-} from "graphql";
+} = require("graphql");
 
-export const mutation = new GraphQLObjectType({
+module.exports = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     addTrack: {

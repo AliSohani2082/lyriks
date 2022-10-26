@@ -1,15 +1,15 @@
-import User from '../models/User'
-import Track from '../models/Track'
-import PlayList from '../models/PlayList'
+const User = require('../models/User')
+const Track = require('../models/Track')
+const PlayList = require('../models/PlayList')
 
-import {
+const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
   GraphQLList,
   GraphQLInt,
   GraphQLBoolean,
-} from 'graphql'
+} = require('graphql')
 
 //user
 const UserType = new GraphQLObjectType({
@@ -88,4 +88,4 @@ const PlayListType = new GraphQLObjectType({
   })
 })
 
-export { UserType, TrackType, PlayListType }
+module.exports = { UserType, TrackType, PlayListType }

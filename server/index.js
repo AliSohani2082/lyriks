@@ -1,13 +1,13 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import cors from 'cors'
-import dotenv from 'dotenv'
-import mongoose from 'mongoose'
-import { graphqlHTTP } from 'express-graphql'
-import { GraphQLSchema } from 'graphql'
-// import RootQuery from './schema/rootQuery'
-import { UserType } from './models/User'
-
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const dotenv = require('dotenv')
+const mongoose = require('mongoose')
+const { graphqlHTTP } = require('express-graphql')
+const { GraphQLSchema } = require('graphql')
+const RootQuery = require('./schema/rootQuery.js')
+const mutation = require('./schema/mutation.js')
+const { UserType } = require('./schema/dataSchema.js')
 const app = express()
 dotenv.config()
 
@@ -15,15 +15,15 @@ app.use(bodyParser.json({limit: '30mb', extended: true}))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true}))
 app.use(cors());
 
-// const schema = GraphQLSchema({
-//   query: RootQuery,
-//   mutation
-// })
+const schema = new GraphQLSchema({
+  query: RootQuery,
+  mutation
+})
 
-// app.use('/graphql', graphqlHTTP({
-//   schema,
-//   graphiql: process.env.NODE_ENV === 'development',
-// }))
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: process.env.NODE_ENV === 'development',
+}))
 
 app.use('/', (req, res) => {
   res.send("Hello World!")
