@@ -12,7 +12,7 @@ import {
   GraphQLBoolean,
 } from 'graphql'
 
-const RootQuery = new GraphQLObjectType({
+export const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     Track: {
