@@ -51,17 +51,20 @@ const TrackType = new GraphQLObjectType({
     title: { type: GraphQLString },
     subtitle: { type: GraphQLString },
     url: { type: GraphQLString },
-    images: {
-      background: { type: GraphQLString },
-      coverart: { type: GraphQLString },
-      coverarthq: { type: GraphQLString },
-      joecolor: { type: GraphQLString },
-    },
+    images: { type: new GraphQLObjectType({
+      name: 'images',
+      fields: () => ({
+        background: { type: GraphQLString },
+        coverart: { type: GraphQLString },
+        coverarthq: { type: GraphQLString },
+        joecolor: { type: GraphQLString },
+      })
+    })},
     genres: { type: new GraphQLList(GraphQLString)},
     users: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
-        User.find({ _id: { $in: parent.usersId } })
+        return User.find({ _id: { $in: parent.usersId } })
       }
     },
     listens: { type: GraphQLInt }
@@ -96,40 +99,40 @@ const PlayListType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    Track: {
+    track: {
       type: TrackType,
       args: { id: { type: GraphQLID }},
       resolve(parent, args) {
         return Track.findById(args.id);
       }
     },
-    Tracks: {
+    tracks: {
       type: new GraphQLList(TrackType),
       resolve(parent, args) {
         return Track.find()
       }
     },
-    User: {
+    user: {
       type: UserType,
       args: { id: { type: GraphQLID }},
       resolve(parent, args) {
         return User.findById(args.id);
       }
     },
-    Users: {
+    users: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
         return User.find()
       }
     },
-    PlayList: {
+    playList: {
       type: PlayListType,
       args: { id: { type: GraphQLID }},
       resolve(parent, args) {
         return PlayList.findById(args.id);
       }
     },
-    PlayLists: {
+    playLists: {
       type: new GraphQLList(PlayListType),
       resolve(parent, args) {
         return PlayList.find()
@@ -143,35 +146,37 @@ const RootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
-    // addTrack: {
-    //   type: TrackType,
-    //   args: {
-    //     title: { type: new GraphQLNonNull(GraphQLString) },
-    //     subtitle: { type: new GraphQLNonNull(GraphQLString) },
-    //     url: { type: new GraphQLNonNull(GraphQLString) },
-    //     genres: { type: new GraphQLList(GraphQLString)},
-    //     background: { type: GraphQLString },
-    //     coverart: { type: GraphQLString },
-    //     coverarthq: { type: GraphQLString },
-    //     joecolor: { type: GraphQLString },
-    //   },
-    //   resolve(parent, args) {
-    //     const track = new Track({
-    //       title: args.title,
-    //       subtitle: args.subtitle,
-    //       url: args.url,
-    //       genres: args.genres,
-    //       images: {
-    //         background: args.background,
-    //         coverart: args.coverart,
-    //         coverarthq: args.coverarthq,
-    //         joecolor: args.joecolor,
-    //       }
-    //     });
+    addTrack: {
+      type: TrackType,
+      args: {
+        usersId: { type: new GraphQLNonNull(new GraphQLList(GraphQLID)) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        subtitle: { type: new GraphQLNonNull(GraphQLString) },
+        url: { type: new GraphQLNonNull(GraphQLString) },
+        genres: { type: new GraphQLList(GraphQLString)},
+        background: { type: GraphQLString },
+        coverart: { type: GraphQLString },
+        coverarthq: { type: GraphQLString },
+        joecolor: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        const track = new Track({
+          usersId: args.usersId,
+          title: args.title,
+          subtitle: args.subtitle,
+          url: args.url,
+          genres: args.genres,
+          images: {
+            background: args.background,
+            coverart: args.coverart,
+            coverarthq: args.coverarthq,
+            joecolor: args.joecolor,
+          },
+        });
 
-    //     return track.save();
-    //   }
-    // },
+        return track.save();
+      }
+    },
     addUser: {
       type: UserType,
       args: {
