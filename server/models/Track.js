@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose
 
 const trackSchema = new Schema({
-  id: { type: String },
   title: { type:  String, required: true },
   subtitle: { type: String, required: true},
   images: {
