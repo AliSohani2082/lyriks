@@ -11,6 +11,7 @@ const {
   GraphQLBoolean,
   GraphQLNonNull,
   GraphQLSchema,
+  GraphQLInputObjectType,
 } = require('graphql')
 
 //user
@@ -76,6 +77,7 @@ const TrackType = new GraphQLObjectType({
 const PlayListType = new GraphQLObjectType({
   name: 'PlayList',
   fields: () => ({
+    id: { type: GraphQLID },
     title: { type: GraphQLString},
     subtitle: { type:  GraphQLString },
     tracks: {
@@ -87,10 +89,10 @@ const PlayListType = new GraphQLObjectType({
     user: {
       type: UserType,
       resolve(parent, args) {
-        return User.findById(userId)
+        return User.findById(parent.userId)
       }
     },
-    isLikedPlayList: { type: GraphQLBoolean },
+    isLikedPlayList: { type: GraphQLString },
   })
 })
 
@@ -177,6 +179,16 @@ const mutation = new GraphQLObjectType({
         return track.save();
       }
     },
+    deleteTrack: {
+      type: TrackType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID)}
+      },
+      async resolve(parent, args){
+        PlayList.updateMany({ tracksId: args.id}, { $pull: { tracksId: args.id }})
+        return Track.findByIdAndRemove(args.id)
+      }
+    },
     addUser: {
       type: UserType,
       args: {
@@ -191,12 +203,94 @@ const mutation = new GraphQLObjectType({
           name: args.name,
           email: args.email,
           password: args.password,
-          profileImg: args.profileImg,
+          profileImg: args.profileImg,   
         });
+
+        const likedSongsPlayList = new PlayList({
+          title: "liked Songs",
+          subtitle: "The songs, you liked",
+          tracksId: new Array(null),
+          userId: user._id,
+          playListType: "likedSongs"
+        })
+        likedSongsPlayList.save()
 
         return user.save();
       }
     },
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID)}
+      },
+      async resolve(parent, args) {
+        const tracks = await Track.find({ usersId: args.id })
+        const playLists = await PlayList.find({ userId: args.id })
+
+        for(const track of tracks) {
+          if(track.usersId.length > 1) {
+            Track.findByIdAndUpdate(track.id, { $pull: { usersId: args.id } })
+          } else {
+            Track.findByIdAndRemove(track.id)
+          }
+        }
+        for(const playList of playLists) {
+          await PlayList.findByIdAndRemove(playList.id)
+        }
+
+        return User.findByIdAndRemove(args.id)
+      }
+    },
+    addPlayList: {
+      type: PlayListType,
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString)},
+        subtitle: { type: new GraphQLNonNull(GraphQLString)},
+        userId: { type: new GraphQLNonNull(GraphQLID)},
+        tracksId: { type: new GraphQLList(GraphQLID)},
+      },
+      resolve(parent, args) {
+        const playList = new PlayList({
+          title: args.title,
+          subtitle: args.subtitle,
+          userId: args.userId,
+          tracksId: args.tracksId
+        })
+        return playList.save()
+      }
+    },
+    deletePlayList: {
+      type: PlayListType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID)},
+      },
+      resolve(parent, args) {
+        return PlayList.findByIdAndRemove(args.id)
+      }
+    },
+    addTrackToPlayList: {
+      type: PlayListType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID)},
+        trackId: { type: new GraphQLNonNull(GraphQLID)}
+      },
+      resolve(parent, args) {
+        return PlayList.findByIdAndUpdate(args.id, { $addToSet: { tracksId: args.trackId } })
+      }
+    },
+    likeTrack: {
+      type: PlayListType,
+      args: {
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+        trackId: { type: new GraphQLNonNull(GraphQLID) }
+      },
+      resolve(parent, args) {
+        return PlayList.findOneAndUpdate(
+          { $and: [{ userId: args.userId }, { playListType: "likedSongs" }]  },
+          { $addToSet: { tracksId: args.trackId }}
+        )
+      }
+    }
   }
 })
 
@@ -204,5 +298,3 @@ module.exports = new GraphQLSchema({
   query: RootQuery,
   mutation
 })
-
-// module.exports = {RootQuery, UserType, TrackType, PlayListType}

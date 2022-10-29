@@ -12,7 +12,10 @@ const playListSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  isLikedPlayList: { type: Boolean },
+  playListType: {
+    type: String,
+    enum: ['regular', 'likedSongs']
+  },
 })
 
 module.exports = mongoose.model("PlayList", playListSchema)
