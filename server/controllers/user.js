@@ -2,9 +2,9 @@ const mongoose = require("mongoose")
 const bcrypt = require('bcryptjs')
 const  jwt = require('jsonwebtoken')
 
-const User = require('../models/Users.js')
+const User = require('../models/User.js')
 
-export const signin = async ( req, res ) => {
+const signin = async ( req, res ) => {
     const { email, password } = req.body
 
     try {
@@ -22,7 +22,7 @@ export const signin = async ( req, res ) => {
     }
 }
 
-export const signup = async ( req, res ) => {
+const signup = async ( req, res ) => {
     const { email, password, confirmPassword, firstName, lastName } = req.body
 
     try {
@@ -39,3 +39,5 @@ export const signup = async ( req, res ) => {
         res.status(500).json({ message: 'Something went wrong.'})
     }
 }
+
+module.exports = { signin, signup }

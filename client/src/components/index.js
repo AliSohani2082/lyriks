@@ -9,6 +9,7 @@ import RelatedSongs from './RelatedSongs';
 import MusicPlayer from './MusicPlayer';
 import Loader from './Loader';
 import Error from './Error';
+import User from './User'
 
 export {
   TopPlay,
@@ -22,4 +23,5 @@ export {
   MusicPlayer,
   Loader,
   Error,
+  User,
 };

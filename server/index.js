@@ -5,6 +5,8 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const { graphqlHTTP } = require('express-graphql')
 const schema = require('./schema/schema.js')
+const userRoutes = require('./routes/user')
+const highjack = require('./highJack')
 
 const app = express()
 dotenv.config()
@@ -12,6 +14,8 @@ dotenv.config()
 app.use(bodyParser.json({limit: '30mb', extended: true}))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true}))
 app.use(cors());
+
+app.use('/users', userRoutes)
 
 
 const PORT = process.env.PORT || 5000
