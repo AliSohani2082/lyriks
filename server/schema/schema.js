@@ -206,7 +206,7 @@ const mutation = new GraphQLObjectType({
           { $addToSet: { tracksId: args.trackId }}
         )
       }
-    }
+    },
   }
 })
 

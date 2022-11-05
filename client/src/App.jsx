@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { Searchbar, User, Sidebar, MusicPlayer, TopPlay } from './components';
-import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './pages';
+import { Auth, ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './pages';
 
 const App = () => {
 
@@ -37,7 +37,7 @@ const App = () => {
                 </div>
               </>
             }/>
-            <Route path='/auth' element={<h1>Auth</h1>}/>
+            <Route path='/auth' element={<Auth/>}/>
           </Routes>
         </div>
       </div>

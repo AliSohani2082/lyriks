@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-import { highjack } from './highjack';
 
 import './index.css';
 import App from './App';

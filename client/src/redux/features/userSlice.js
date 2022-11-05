@@ -18,6 +18,11 @@ const userSlice = createSlice({
       localStorage.clear();
       state.authData = null
       state.isLogedIn = false;
+    },
+    signin: (state) => {
+      try {
+        const { data } = await
+      }
     }
   },
 });
