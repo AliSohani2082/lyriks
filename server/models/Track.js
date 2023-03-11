@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const trackSchema = new Schema({
-  title: { type:  String, required: true },
-  subtitle: { type: String, required: true},
+  title: { type: String, required: true },
+  subtitle: { type: String, required: true },
   images: {
     background: { type: String },
     coverart: { type: String },
@@ -12,11 +12,11 @@ const trackSchema = new Schema({
   },
   url: { type: String, required: true },
   genres: { type: [String] },
-  usersId: {
+  ArtistsId: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'User'
+    ref: "User",
   },
-  listens: { type: Number } 
-})
+  listens: { type: Number },
+});
 
-module.exports = mongoose.model("Track", trackSchema)
+module.exports = mongoose.model("Track", trackSchema);
